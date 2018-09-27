@@ -98,6 +98,7 @@ public class Trip {
         // visit second city through last and add trip weights
         for (int i = 1; i < visitOrder.size(); i++) {
             double distance = graph.getWeight(prevCity, visitOrder.get(i));
+            prevCity = visitOrder.get(i);
             if (distance < 0) {
                 cost = Double.MAX_VALUE;
                 break;
