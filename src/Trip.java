@@ -107,15 +107,19 @@ public class Trip {
             }
         }
 
-        // Add in distance between last city and first
-        double goingHome = graph.getWeight(
+        // Add in distance between last city and first, but only if all
+        // of the cities are in the trip.
+        if (citiesLeft.isEmpty()) {
+            double goingHome = graph.getWeight(
                 visitOrder.get(visitOrder.size() - 1),
                 visitOrder.get(0));
-        if (goingHome < 0 || cost == Double.MAX_VALUE) {
-            return Double.MAX_VALUE;
-        } else {
-            return cost + goingHome;
+            if (goingHome < 0 || cost == Double.MAX_VALUE) {
+                cost = Double.MAX_VALUE;
+            } else {
+                cost = cost + goingHome;
+            }
         }
+        return cost;
     }
 
     // Provide an ordered list of all of the cities left.
